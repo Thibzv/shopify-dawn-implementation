@@ -1,0 +1,84 @@
+{% comment %}
+  Render Cart Drawer Promotions
+{% endcomment %}
+
+{% assign free_shipping = 5000 %}
+{% assign free_product = 10000 %}
+
+<div class="cart-drawer-promotions" {{ block.shopify_attributes }}>
+  <ul class="cart-drawer-promotions__list">
+    <li
+      class="cart-drawer-promotions__item {% if cart.total_price >= free_shipping%}cart-drawer-promotions__item--success{% endif %}"
+      style="--pourcentage: {{ cart.total_price | times: 100 | divided_by: free_shipping }}%;"
+    >
+      <p class="cart-drawer-promotions__label">
+        {% if cart.total_price < free_shipping %}
+          Plus que {{ free_shipping | minus: cart.total_price | money }} pour bénéficier de la livraison gratuite.
+        {% else %}
+          Félicitations, vous bénéficiez de la livraison gratuite !
+        {% endif %}
+      </p>
+    </li>
+
+    <li
+      class="cart-drawer-promotions__item {% if cart.total_price >= free_product%}cart-drawer-promotions__item--success{% endif %}"
+      style="--pourcentage: {{ cart.total_price | times: 100 | divided_by: free_product }}%;"
+    >
+      <p class="cart-drawer-promotions__label ">
+        {% if cart.total_price < free_product %}
+          Plus que {{ free_product | minus: cart.total_price | money }} pour bénéficier d'un produit gratuit.
+        {% else %}
+          Félicitations, vous bénéficiez d'un produit gratuit !
+        {% endif %}
+      </p>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .cart-drawer-promotions {
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cart-drawer-promotions__list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+  }
+
+  .cart-drawer-promotions__label {
+    font-weight: bold;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+  }
+
+  .cart-drawer-promotions__item {
+    --pourcentage: 0%;
+    --clr: #000;
+
+    margin-bottom: 1.5rem;
+  }
+
+  .cart-drawer-promotions__item--success {
+    --clr: #2ecc71;
+  }
+
+  .cart-drawer-promotions__item--success .cart-drawer-promotions__label::before {
+    content: '🎉';
+    margin-right: 0.5rem;
+  }
+
+  .cart-drawer-promotions__item::after {
+    content: '';
+
+    display: block;
+    height: 0.3rem;
+    width: 100%;
+
+    background-image: linear-gradient(90deg, var(--clr) var(--pourcentage), rgba(0, 0, 0, 0.2) var(--pourcentage));
+  }
+</style>

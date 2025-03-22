@@ -19,3 +19,19 @@ Pour créer un shop de développement, il faut se rendre sur le site de Shopify 
 ```bash
 shopify theme dev --store test-dev-ecommerce-thibz # Lancement du shop de développement
 ```
+
+## Exercice 1
+
+#### 1. Changement du type de panier en "drawer"
+
+Modification du fichier `config/setting_data.json` :
+
+```json
+...
+{
+"cart_type": "drawer",
+}
+...
+```
+
+#### 2. Création d'un nouveau composant pour les promotions

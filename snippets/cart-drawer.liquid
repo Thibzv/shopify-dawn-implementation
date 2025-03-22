@@ -61,6 +61,10 @@
           {%- endif -%}
         </div>
       {%- endif -%}
+
+      <!-- Render custom cart drawer promotions section -->
+      {% render 'cart-drawer-promotions' %}
+
       <div class="drawer__header">
         <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
         <button
