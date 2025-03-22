@@ -35,3 +35,25 @@ Modification du fichier `config/setting_data.json` :
 ```
 
 #### 2. Création d'un nouveau composant pour les promotions
+
+- Création du snippet `cart-drawer-promotions.liquid` et affichage de ce snippet dans le fichier `sections/cart-drawer.liquid`. 
+
+
+#### 3. Intégration CSS et developpement des fonctionnalités liées aux promotions
+
+- Utilisation de la variable globale `cart` pour afficher la marge restante avant de bénéficier des différentes promotions. 
+
+- Calcul de la différence entre le montant minimum (via des variables) pour bénéficier de la promotion et le montant actuel du panier, puis affichage de cette différence sous forme de texte. 
+
+- Implémentation d'une barre de progrès sous forme de pourcentage en utilisant la même logique que pour le texte, et en utilisant une variable css et un pseudo-element.
+
+
+#### 4. Mise a jour dynamique du cart-drawer en fonction du prix du panier
+
+- Modification du fichier `assets/cart-drawer.js` pour créer un événement personnalisé qui se déclenche à chaque fois que le panier est mis à jour.
+
+- Création d'une fonction qui ajoute ou supprime un produit (via un ID prédéfini) au panier en fonction du montant actuel du panier et de la présence ou non du produit. (Utilisation de l'API de Shopify '/cart/add.js' et '/cart/udpate.js')
+
+- Création d'une fonction qui met à jour le DOM du panier en fonction la modification du panier. (Utilisation de l'API de rendering de sections de Shopify '/?section_id=cart-drawer')
+
+- Ajout d'un écouteur d'événement sur le panier pour déclencher la fonction de mise à jour du panier à chaque fois que le panier est mis à jour.
