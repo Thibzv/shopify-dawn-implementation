@@ -57,3 +57,49 @@ Modification du fichier `config/setting_data.json` :
 - Création d'une fonction qui met à jour le DOM du panier en fonction la modification du panier. (Utilisation de l'API de rendering de sections de Shopify '/?section_id=cart-drawer')
 
 - Ajout d'un écouteur d'événement sur le panier pour déclencher la fonction de mise à jour du panier à chaque fois que le panier est mis à jour.
+
+
+## Exercice 2
+
+#### 1. Accès a shopify Flow
+- Allez dans l'admin Shopify, puis dans "Apps > Shopify Flow" et créer un nouveau flux d'automatisation.
+
+#### 2. Ajouts des actions et des déclencheurs
+- Déclencheur : "Order Created" (Commande créée), se déclenche lorsque qu'une commande est créée.
+- Condition : "La commande contient un article avec SKU = "1".
+- Action : "Ajuster les niveaux de stock", décrémenter le stock de 1 pour le produit avec SKU = "1" via une requête HTTP à l'API de Shopify.
+
+- Gestion des stocks insuffisants : Si le stock est inférieur ou égal à 0, envoyer un e-mail à l'administrateur du shop pour l'informer que le stock est épuisé.
+
+### 3. Documentation
+
+[flow.png](shopifyFlow/flow.png)
+![flow](shopifyFlow/flow.png)
+
+
+- Exemple de requête HTTP pour ajuster le stock :
+
+```json
+{
+  "order_id": "10006453059907",
+  "product_id": "14860849905987",
+  "sku": "1",
+  "quantity_deducted": 1,
+  "remaining_stock": 10,
+  "action": "deduct_stock",
+}
+```
+
+- Gestion des erreurs :
+
+```json
+{
+  "order_id": "10006453059907",
+  "product_id": "14860849905987",
+  "sku": "GIFT-SKU-123",
+  "quantity_requested": 1,
+  "remaining_stock": 0,
+  "error": "Insufficient stock",
+  "action": "notify_admin",
+}
+```
