@@ -135,3 +135,13 @@ Ce système permet une gestion dynamique et centralisée des promotions pour les
 - Ajout d'un "badge" sur les produits ayant la promotion active,
 - Modification du fichier `snippets/product-card.liquid` pour afficher le badge en fonction du nom de la collection sur les produits concernés.
 - Utilisation des classes CSS déjà présentes dans le thème pour styliser le badge.
+
+#### 4. Passage du prix remisé dans le panier
+- Utilisation du même calcul de prix remisé pour l'affichage dans le panier.
+- Modification du fichier `snippets/buy-button.liquid` pour passer le prix remisé à l'item du panier dans une propriété `discounted_price`.
+
+#### 5. Affichage du prix remisé dans le panier
+- Modification du fichier `snippets/cart-drawer.liquid` et d'une condition pour cacher la propriété `discounted_price` dans la description du produit.
+
+- Utilisation de la propriété `discounted_price` pour afficher le prix remisé dans le panier en modifiant le prix d'un item et en fonction de la quantité.
+

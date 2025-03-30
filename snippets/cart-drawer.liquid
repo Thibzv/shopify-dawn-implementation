@@ -147,22 +147,35 @@
                             {{- item.product.title | escape -}}
                           </a>
 
-                          {%- if item.original_price != item.final_price -%}
+                          {%- if item.original_price != item.final_price
+                            or item.final_price != item.properties.discounted_price
+                          -%}
+                            <!--
+                              Si le prix original est différent du prix final ou si le prix final est différent du prix remisé,
+                              affiche les prix avec une mise en forme pour indiquer la réduction.
+                            -->
                             <div class="cart-item__discounted-prices">
                               <span class="visually-hidden">
                                 {{ 'products.product.price.regular_price' | t }}
                               </span>
+                              <!-- Affiche le prix original barré -->
                               <s class="cart-item__old-price product-option">
                                 {{- item.original_price | money -}}
                               </s>
                               <span class="visually-hidden">
                                 {{ 'products.product.price.sale_price' | t }}
                               </span>
+                              <!-- Affiche le prix final ou le prix remisé si disponible -->
                               <strong class="cart-item__final-price product-option">
-                                {{ item.final_price | money }}
+                                {% if item.properties.discounted_price %}
+                                  {{ item.properties.discounted_price | money }}
+                                {% else %}
+                                  {{ item.final_price | money }}
+                                {% endif %}
                               </strong>
                             </div>
                           {%- else -%}
+                            <!-- Si aucun prix remisé n'est appliqué, affiche uniquement le prix original -->
                             <div class="product-option">
                               {{ item.original_price | money }}
                             </div>
@@ -187,7 +200,13 @@
 
                               {%- for property in item.properties -%}
                                 {%- assign property_first_char = property.first | slice: 0 -%}
-                                {%- if property.last != blank and property_first_char != '_' -%}
+                                {% comment %}
+                                  Condition pour ne pas afficher la propriété "discounted_price" dans le cart-drawer
+                                {% endcomment %}
+                                {%- if property.last != blank
+                                  and property_first_char != '_'
+                                  and property.first != 'discounted_price'
+                                -%}
                                   <div class="product-option">
                                     <dt>{{ property.first }}:</dt>
                                     <dd>
@@ -229,40 +248,39 @@
                         <td class="cart-item__totals right" role="cell" headers="CartDrawer-ColumnTotal">
                           {%- render 'loading-spinner' -%}
                           <div class="cart-item__price-wrapper">
-                            {%- if item.original_line_price != item.final_line_price -%}
+                            {%- if item.original_line_price != item.final_line_price
+                              or item.final_line_price != item.properties.discounted_price
+                            -%}
+                              <!--
+                                Si le prix original total (original_line_price) est différent du prix final total (final_line_price)
+                                ou si le prix final total est différent du prix remisé (discounted_price),
+                                affiche les prix avec une mise en forme pour indiquer la réduction.
+                              -->
                               <div class="cart-item__discounted-prices">
                                 <span class="visually-hidden">
                                   {{ 'products.product.price.regular_price' | t }}
                                 </span>
+                                <!-- Affiche le prix original total barré -->
                                 <s class="cart-item__old-price price price--end">
                                   {{ item.original_line_price | money }}
                                 </s>
                                 <span class="visually-hidden">
                                   {{ 'products.product.price.sale_price' | t }}
                                 </span>
+                                <!-- Affiche le prix remisé total si disponible, sinon le prix final total -->
                                 <span class="price price--end">
-                                  {{ item.final_line_price | money }}
+                                  {% if item.properties.discounted_price %}
+                                    {{ item.properties.discounted_price | times: item.quantity | money }}
+                                  {% else %}
+                                    {{ item.final_line_price | money }}
+                                  {% endif %}
                                 </span>
                               </div>
                             {%- else -%}
+                              <!-- Si aucun prix remisé n'est appliqué, affiche uniquement le prix original total -->
                               <span class="price price--end">
                                 {{ item.original_line_price | money }}
                               </span>
-                            {%- endif -%}
-
-                            {%- if item.variant.available and item.unit_price_measurement -%}
-                              <div class="unit-price caption">
-                                <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
-                                {{ item.unit_price | money }}
-                                <span aria-hidden="true">/</span>
-                                <span class="visually-hidden"
-                                  >&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span
-                                >
-                                {%- if item.unit_price_measurement.reference_value != 1 -%}
-                                  {{- item.unit_price_measurement.reference_value -}}
-                                {%- endif -%}
-                                {{ item.unit_price_measurement.reference_unit }}
-                              </div>
                             {%- endif -%}
                           </div>
                         </td>
