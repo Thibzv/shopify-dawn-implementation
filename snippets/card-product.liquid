@@ -140,6 +140,22 @@
                 {{- 'products.product.on_sale' | t -}}
               </span>
             {%- endif -%}
+
+            {% comment %}
+              Vérifie si le produit appartient à une collection spécifique (par exemple, "promotions").
+              Si oui, affiche un badge avec le titre de la collection.
+            {% endcomment %}
+            {% assign promotion_collection = card_product.collections | where: 'handle', 'promotions' | first %}
+
+            {% comment %}
+              Si une collection "promotions" est trouvée, affiche un badge avec le titre de la collection.
+              Le badge utilise la classe CSS définie pour les badges de soldes.
+            {% endcomment %}
+            {% if promotion_collection %}
+              <span class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}">
+                {{ promotion_collection.title }}
+              </span>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -564,6 +580,22 @@
               {{- 'products.product.on_sale' | t -}}
             </span>
           {%- endif -%}
+
+          {% comment %}
+            Vérifie si le produit appartient à une collection spécifique (par exemple, "promotions").
+            Si oui, affiche un badge avec le titre de la collection.
+          {% endcomment %}
+          {% assign promotion_collection = card_product.collections | where: 'handle', 'promotions' | first %}
+
+          {% comment %}
+            Si une collection "promotions" est trouvée, affiche un badge avec le titre de la collection.
+            Le badge utilise la classe CSS définie pour les badges de soldes.
+          {% endcomment %}
+          {% if promotion_collection %}
+            <span class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}">
+              {{ promotion_collection.title }}
+            </span>
+          {% endif %}
         </div>
       </div>
     </div>

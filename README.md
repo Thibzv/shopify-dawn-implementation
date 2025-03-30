@@ -131,3 +131,7 @@ shopify theme serve --store [nom-du-store]
 
 Ce système permet une gestion dynamique et centralisée des promotions pour les produits appartenant à la collection "Soldes".
 
+#### 3. Affichage du label 
+- Ajout d'un "badge" sur les produits ayant la promotion active,
+- Modification du fichier `snippets/product-card.liquid` pour afficher le badge en fonction du nom de la collection sur les produits concernés.
+- Utilisation des classes CSS déjà présentes dans le thème pour styliser le badge.
