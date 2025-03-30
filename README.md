@@ -117,11 +117,17 @@ cd shopify-dawn-implementation
 shopify theme serve --store [nom-du-store]
 ```
 
+### Exercice 4 : Gestion des promotions et soldes
 
-### Exercice 4
+#### 1. Création d'une collection "Soldes"
+- Mise en place d'une collection nommée "Soldes" avec un métafield permettant de définir facilement le pourcentage de promotion applicable.
+- Ajout des produits concernés à cette collection.
 
-#### 1. Création d'une collection "Soldes" 
+#### 2. Calcul et affichage des remises
+- Modification du fichier `snippets/price.liquid` pour :
+  - Calculer automatiquement le prix soldé en fonction du pourcentage défini dans le métafield de la collection.
+  - Afficher le prix barré (prix original) et le prix réduit (prix soldé) sur les pages de collection et de produit.
+- Utilisation d'une valeur par défaut de 10 % si aucun pourcentage n'est défini dans le métafield.
 
-- Création d'une collection "Soldes" avec comme métafields la valeur de la promotion en pourcentage afin de pouvoir la changer facilement. 
+Ce système permet une gestion dynamique et centralisée des promotions pour les produits appartenant à la collection "Soldes".
 
-- Ajouts des produits à cette collection.

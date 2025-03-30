@@ -38,6 +38,31 @@
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
+
+  # Vérification des collections du produit
+  assign collection_handles = product.collections | map: 'handle'
+
+  # Si le produit appartient à la collection "promotions"
+  if collection_handles contains 'promotions'
+    # Récupération de la collection "promotions"
+    assign promotion_collection = product.collections | where: 'handle', 'promotions' | first
+
+    # Récupération du pourcentage de promotion depuis les métadonnées de la collection
+    # Si aucune valeur n'est définie, une valeur par défaut de 10% est utilisée
+    assign promotion_pourcentage = promotion_collection.metafields.custom.valeur_de_la_promotion | default: 10
+
+    # Stockage du prix original dans la variable compare_at_price
+    assign compare_at_price = price
+
+    # Calcul du montant de la réduction
+    assign discount_amount = price | times: promotion_pourcentage | divided_by: 100
+
+    # Mise à jour du prix après application de la réduction
+    assign price = price | minus: discount_amount
+
+    # Formatage du prix avec la devise
+    assign money_price = price | money_with_currency
+  endif
 -%}
 
 {%- unless target == null and placeholder == null -%}
