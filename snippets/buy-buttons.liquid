@@ -22,6 +22,25 @@
       if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false
         assign show_dynamic_checkout = true
       endif
+
+      # Vérifie si le produit appartient à une collection spécifique (par exemple, "promotions").
+      assign promotion_collection = product.collections | where: 'handle', 'promotions' | first
+
+      # Si une collection "promotions" est trouvée, applique une réduction au prix du produit.
+      if promotion_collection
+        # Récupère le pourcentage de promotion depuis les métadonnées de la collection.
+        # Si aucune valeur n'est définie, une valeur par défaut de 10 % est utilisée.
+        assign promotion_pourcentage = promotion_collection.metafields.custom.valeur_de_la_promotion | default: 10
+
+        # Calcule le montant de la réduction en fonction du prix du produit et du pourcentage de promotion.
+        assign discount_amount = product.price | times: promotion_pourcentage | divided_by: 100
+
+        # Met à jour le prix du produit après application de la réduction.
+        assign price = product.price | minus: discount_amount
+
+        # Stocke le prix réduit dans une variable pour un affichage ou une utilisation ultérieure.
+        assign discounted_price = price
+      endif
     -%}
 
     <product-form
@@ -55,6 +74,14 @@
           {% endif %}
           class="product-variant-id"
         >
+
+        {% if discounted_price %}
+          <input
+            type="hidden"
+            name="properties[discounted_price]"
+            value="{{ discounted_price }}"
+          >
+        {% endif %}
 
         {%- if gift_card_recipient_feature_active -%}
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
