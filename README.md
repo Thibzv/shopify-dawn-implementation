@@ -58,7 +58,6 @@ Modification du fichier `config/setting_data.json` :
 
 - Ajout d'un écouteur d'événement sur le panier pour déclencher la fonction de mise à jour du panier à chaque fois que le panier est mis à jour.
 
-
 ## Exercice 2
 
 #### 1. Accès a shopify Flow
@@ -71,7 +70,7 @@ Modification du fichier `config/setting_data.json` :
 
 - Gestion des stocks insuffisants : Si le stock est inférieur ou égal à 0, envoyer un e-mail à l'administrateur du shop pour l'informer que le stock est épuisé.
 
-### 3. Documentation
+#### 3. Documentation
 
 [flow.png](shopifyFlow/flow.png)
 ![flow](shopifyFlow/flow.png)
@@ -102,4 +101,18 @@ Modification du fichier `config/setting_data.json` :
   "error": "Insufficient stock",
   "action": "notify_admin",
 }
+```
+
+### Exercice 3
+
+#### Installation du thème Dawn - Thibault VIGNERON
+
+- Prérequis : Avoir un compte Shopify, un shop de développement et avoir installé Shopify CLI. Également, créer un produit cadeau avec le SKU "1" et comme ID '14860849905987'.
+
+- Cloner le thème Dawn et lancer le serveur de développement :
+
+```bash
+git clone https://github.com/Thibzv/shopify-dawn-implementation.git
+cd shopify-dawn-implementation
+shopify theme serve --store [nom-du-store]
 ```
