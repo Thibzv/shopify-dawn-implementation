@@ -107,7 +107,7 @@ Modification du fichier `config/setting_data.json` :
 
 #### Installation du thème Dawn - Thibault VIGNERON
 
-- Prérequis : Avoir un compte Shopify, un shop de développement et avoir installé Shopify CLI. Également, créer un produit cadeau avec le SKU "1" et comme ID '14860849905987'.
+- Prérequis : Avoir un compte Shopify, un shop de développement et avoir installé Shopify CLI. Également, créer un produit cadeau avec le SKU "1" et comme ID '52831218630979' (Amélioration => création d'un métafields pour choisir le produit).
 
 - Cloner le thème Dawn et lancer le serveur de développement :
 
@@ -116,3 +116,12 @@ git clone https://github.com/Thibzv/shopify-dawn-implementation.git
 cd shopify-dawn-implementation
 shopify theme serve --store [nom-du-store]
 ```
+
+
+### Exercice 4
+
+#### 1. Création d'une collection "Soldes" 
+
+- Création d'une collection "Soldes" avec comme métafields la valeur de la promotion en pourcentage afin de pouvoir la changer facilement. 
+
+- Ajouts des produits à cette collection.
