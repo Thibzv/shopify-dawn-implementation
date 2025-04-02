@@ -54,7 +54,7 @@ Modification du fichier `config/setting_data.json` :
 
 #### 4. Mise a jour dynamique du cart-drawer en fonction du prix du panier
 
-- Modification des fichiers `assets/cart-drawer.js` et `snippets/buy-buttons.liquid` du pour créer un événement personnalisé qui se déclenche à chaque fois que le panier est mis à jour.
+- Modification des fichiers `assets/cart-drawer.js` et création d'un fichier `assets/cart-drawer-promotion.js` pour créer un événement personnalisé qui se déclenche à chaque fois que le panier est mis à jour et qu'un produit est ajouté via le formulaire d'ajout de Shopify.
 
 - Création d'une fonction qui ajoute ou supprime un produit (via un ID prédéfini) au panier en fonction du montant actuel du panier et de la présence ou non du produit. (Utilisation de l'API de Shopify '/cart/add.js' et '/cart/udpate.js')
 
