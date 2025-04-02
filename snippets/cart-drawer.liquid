@@ -63,7 +63,9 @@
       {%- endif -%}
 
       <!-- Render custom cart drawer promotions section -->
-      {% render 'cart-drawer-promotions' %}
+      {% if cart != empty %}
+        {% render 'cart-drawer-promotions' %}
+      {% endif %}
 
       <div class="drawer__header">
         <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
