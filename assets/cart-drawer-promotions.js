@@ -51,6 +51,12 @@ async function updateCartDrawer() {
   }
 }
 
+/*
+ * Add event listener to all forms with action "/cart/add"
+ * Prevent default form submission
+ * Use fetch to add the product to the cart
+ * Update the cart drawer if the product is added successfully
+ */
 const addToCartForms = document.querySelectorAll('form[action="/cart/add"]');
 
 addToCartForms.forEach((form) => {
