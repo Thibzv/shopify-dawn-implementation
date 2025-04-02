@@ -176,3 +176,42 @@
     <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const addToCartForms = document.querySelectorAll('form[action="/cart/add"]');
+
+    addToCartForms.forEach((form) => {
+      form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Empêche le comportement par défaut du formulaire
+
+        const formData = new FormData(form);
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Erreur lors de l’ajout au panier');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log('Produit ajouté au panier :', data);
+
+            // Déclenchement de l'événement personnalisé
+            const cartUpdateEvent = new CustomEvent('cart_update', {
+              detail: {
+                event: 'cart_update',
+              },
+            });
+            document.dispatchEvent(cartUpdateEvent);
+          })
+          .catch((error) => {
+            console.error('Erreur :', error);
+          });
+      });
+    });
+  });
+</script>
