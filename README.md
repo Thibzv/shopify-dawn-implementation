@@ -1,5 +1,9 @@
 # Shopify Dawn Implementation - Thibault VIGNERON
 
+URL du shop : https://test-dev-ecommerce-thibz.myshopify.com/
+
+Mot de passe : `ungeop`
+
 ## Mise en place du projet
 
 ### Installation des dépendances
@@ -144,4 +148,3 @@ Ce système permet une gestion dynamique et centralisée des promotions pour les
 - Modification du fichier `snippets/cart-drawer.liquid` et d'une condition pour cacher la propriété `discounted_price` dans la description du produit.
 
 - Utilisation de la propriété `discounted_price` pour afficher le prix remisé dans le panier en modifiant le prix d'un item et en fonction de la quantité.
-
